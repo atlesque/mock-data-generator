@@ -6,9 +6,20 @@ export default defineNuxtConfig({
   ],
   css: ['~/assets/css/main.css'],
   ssr: true,
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
   nitro: {
     prerender: {
-      routes: ['/'],
+      routes: ['/', '/lorem-ipsum', '/iban-bic'],
+    },
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['fuse.js'],
     },
   },
   devtools: { enabled: true },
