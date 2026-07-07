@@ -99,6 +99,7 @@
 
 <script setup lang="ts">
 import type { LoremIpsumConfig, IbanBicConfig, MockTypeConfig } from '~/types/mock-types'
+import { detectBrowserCountry } from '~/data/sepa-countries'
 
 const route = useRoute()
 const slug = route.params.slug as string
@@ -114,7 +115,7 @@ const loremConfig = ref<LoremIpsumConfig>({
 })
 
 const ibanConfig = ref<IbanBicConfig>({
-  country: 'DE',
+  country: import.meta.client ? detectBrowserCountry('DE') : 'DE',
   generateBic: false,
 })
 

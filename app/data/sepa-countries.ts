@@ -40,3 +40,32 @@ export const sepaCountries: SepaCountry[] = [
   { code: 'CH', name: 'Switzerland', ibanLength: 21 },
   { code: 'GB', name: 'United Kingdom', ibanLength: 22 },
 ]
+
+/**
+ * Extracts the country code from a BCP 47 locale string (e.g. "de-DE" → "DE")
+ * and returns it if it matches a SEPA country, otherwise returns the fallback.
+ */
+export function detectCountryFromLocale(
+  locale: string,
+  fallback = 'DE',
+): string {
+  const parts = locale.split('-')
+  // BCP 47 locales are typically "language-REGION", region is the last part
+  const region = parts.length > 1 ? parts[parts.length - 1]!.toUpperCase() : ''
+  if (sepaCountries.some(c => c.code === region)) {
+    return region
+  }
+  return fallback
+}
+
+/**
+ * Returns the country code matching the browser's primary locale,
+ * or the fallback if not available / not a SEPA country.
+ * Only usable client-side.
+ */
+export function detectBrowserCountry(fallback = 'DE'): string {
+  if (typeof navigator !== 'undefined' && navigator.language) {
+    return detectCountryFromLocale(navigator.language, fallback)
+  }
+  return fallback
+}
