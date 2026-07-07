@@ -1,5 +1,5 @@
-import type { LoremIpsumConfig } from '~/types/mock-types'
 import { loremIpsumWords } from '~/data/lorem-ipsum-words'
+import type { LoremIpsumConfig } from '~/types/mock-types'
 
 const CLASSIC_START = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 

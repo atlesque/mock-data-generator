@@ -1,5 +1,5 @@
-import type { IbanBicConfig } from '~/types/mock-types'
 import { sepaCountries, type SepaCountry } from '~/data/sepa-countries'
+import type { IbanBicConfig } from '~/types/mock-types'
 
 function randomDigit(): number {
   return Math.floor(Math.random() * 10)
