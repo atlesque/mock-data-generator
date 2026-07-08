@@ -22,6 +22,13 @@ export default defineNuxtConfig({
       include: ['fuse.js'],
     },
   },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
+    },
+  },
   devtools: { enabled: true },
   devServer: {
     port: 8550,

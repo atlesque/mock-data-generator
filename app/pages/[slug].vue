@@ -107,17 +107,20 @@ const slug = route.params.slug as string
 const { lookupBySlug } = useMockTypes()
 const mockType = computed(() => lookupBySlug(slug))
 
-// Default configs
-const loremConfig = ref<LoremIpsumConfig>({
-  mode: 'paragraphs',
-  count: 1,
-  startWithClassic: false,
-})
+// Persisted configs via generic composable
+const { useConfig, stored } = useMockSettings()
 
-const ibanConfig = ref<IbanBicConfig>({
-  country: import.meta.client ? detectBrowserCountry('DE') : 'DE',
-  generateBic: false,
-})
+// Snapshot before useConfig populates defaults, so we can detect first visit
+const hasStoredConfig = (slug: string) => slug in stored.value
+const isFirstVisit = import.meta.client && !hasStoredConfig('iban-bic')
+
+const loremConfig = useConfig<LoremIpsumConfig>('lorem-ipsum')
+const ibanConfig = useConfig<IbanBicConfig>('iban-bic')
+
+// Auto-detect browser country only on first visit
+if (isFirstVisit) {
+  ibanConfig.value = { ...ibanConfig.value, country: detectBrowserCountry('DE') }
+}
 
 const config = computed<MockTypeConfig>(() => {
   if (mockType.value?.slug === 'lorem-ipsum') return loremConfig.value
