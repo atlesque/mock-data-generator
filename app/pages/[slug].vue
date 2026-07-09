@@ -41,9 +41,24 @@
         </div>
 
         <div>
-          <h3 class="mb-4 text-sm font-semibold uppercase tracking-wide text-muted">
-            Output
-          </h3>
+          <div class="mb-4 flex items-center justify-between">
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-muted">
+              Output
+            </h3>
+            <div class="flex items-center gap-1">
+              <span
+                v-if="pageCopied"
+                class="text-xs text-success"
+              >Copied!</span>
+              <UButton
+                color="neutral"
+                variant="ghost"
+                icon="i-lucide-copy"
+                size="xs"
+                @click="handlePageCopy"
+              />
+            </div>
+          </div>
 
           <ClientOnly>
             <LoremIpsumOutput
@@ -161,6 +176,18 @@ function regenerate() {
   }
   else {
     ibanGen.regenerate()
+  }
+}
+
+const { copyToClipboard: pageCopyToClipboard } = useClipboard()
+const pageCopied = ref(false)
+
+async function handlePageCopy() {
+  pageCopied.value = false
+  const success = await pageCopyToClipboard(outputText.value)
+  if (success) {
+    pageCopied.value = true
+    setTimeout(() => { pageCopied.value = false }, 2000)
   }
 }
 </script>
