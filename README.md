@@ -1,75 +1,47 @@
-# Nuxt Content Starter
+# Mock Data Generator
 
-Look at the [Nuxt Content documentation](https://content.nuxt.com) to learn more.
+A static web app for generating mock data. Built with [Nuxt](https://nuxt.com) and [Nuxt UI](https://ui.nuxt.com).
 
 ## Setup
 
 Make sure to install dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+Start the development server on `http://localhost:8550`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
 
-Build the application for production:
+Generate a fully static site:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm generate
 ```
 
-Locally preview production build:
+Locally preview the generated build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Linting
+
+```bash
+pnpm lint        # check for issues
+pnpm lint:fix    # auto-fix issues
+```
+
+## Tech Stack
+
+- [Nuxt 4](https://nuxt.com) — Vue framework with static site generation
+- [Nuxt UI v4](https://ui.nuxt.com) — component library with Tailwind CSS
+- [Fuse.js](https://fusejs.io) — fuzzy search for filtering mock data types
+- [Lucide](https://lucide.dev) — icon set via Iconify
