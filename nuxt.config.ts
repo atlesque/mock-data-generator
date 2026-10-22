@@ -27,6 +27,10 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       ],
+      // Shared opt-in consent banner; loads analytics only after "Allow".
+      script: [
+        { src: 'https://tools.atlesque.dev/consent.js', defer: true },
+      ],
     },
   },
   devtools: { enabled: true },
