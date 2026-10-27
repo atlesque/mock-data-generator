@@ -14,6 +14,8 @@ export interface LoremIpsumConfig {
 export interface IbanBicConfig {
   country: string
   generateBic: boolean
+  /** Only generate IBANs whose bank code belongs to a known bank */
+  realBank?: boolean
 }
 
 export type MockTypeConfig = LoremIpsumConfig | IbanBicConfig

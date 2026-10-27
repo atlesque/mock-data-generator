@@ -13,6 +13,7 @@ const defaultConfigs: Record<string, MockTypeConfig> = {
   'iban-bic': {
     country: 'DE',
     generateBic: false,
+    realBank: false,
   } satisfies IbanBicConfig,
 }
 

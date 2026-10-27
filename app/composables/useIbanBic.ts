@@ -1,6 +1,14 @@
+import type { Bank } from '~/data/banks'
 import { sepaCountries, type SepaCountry } from '~/data/sepa-countries'
 import type { IbanBicConfig } from '~/types/mock-types'
-import { generateIban } from '~/utils/iban'
+import { generateIban, identifyBank } from '~/utils/iban'
+
+export interface IbanBicResult {
+  iban: string
+  bic?: string
+  /** The bank behind the IBAN, when its bank code is a known bank */
+  bank?: Bank
+}
 
 function randomAlpha(): string {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -28,11 +36,12 @@ export function useIbanBic(config: Ref<IbanBicConfig>) {
     return found ?? sepaCountries[0]!
   })
 
-  const result = computed<{ iban: string; bic?: string }>(() => {
+  const result = computed<IbanBicResult>(() => {
     const c = country.value
-    const iban = generateIban(c)
-    const bic = config.value.generateBic ? generateBic(c.code) : undefined
-    return { iban, bic }
+    const iban = generateIban(c, { realBank: config.value.realBank })
+    const bank = identifyBank(iban)
+    const bic = config.value.generateBic ? (bank?.bic ?? generateBic(c.code)) : undefined
+    return { iban, bic, bank }
   })
 
   function regenerate() {

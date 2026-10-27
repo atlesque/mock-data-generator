@@ -67,7 +67,7 @@
             />
             <IbanBicOutput
               v-else-if="mockType.slug === 'iban-bic'"
-              :result="(generated as { iban: string; bic?: string })"
+              :result="(generated as IbanBicResult)"
             />
 
             <div class="mt-4">
@@ -115,6 +115,7 @@
 <script setup lang="ts">
 import type { LoremIpsumConfig, IbanBicConfig, MockTypeConfig } from '~/types/mock-types'
 import { detectBrowserCountry } from '~/data/sepa-countries'
+import type { IbanBicResult } from '~/composables/useIbanBic'
 
 const route = useRoute()
 const slug = route.params.slug as string
@@ -157,7 +158,7 @@ const outputText = computed(() => {
   if (mockType.value?.slug === 'lorem-ipsum') {
     return (generated.value as { data: string[] }).data.join('\n\n')
   }
-  const r = generated.value as { iban: string; bic?: string }
+  const r = generated.value as IbanBicResult
   return r.bic ? `${r.iban}\n${r.bic}` : r.iban
 })
 
