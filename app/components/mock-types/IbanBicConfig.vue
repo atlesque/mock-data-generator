@@ -14,6 +14,13 @@
       description="Also generate a BIC (Business Identifier Code)"
       @update:model-value="(v: boolean) => emit('update:config', { ...config, generateBic: v })"
     />
+
+    <UCheckbox
+      :model-value="config.realBank ?? false"
+      label="Real bank only"
+      description="Only use bank codes of known banks, so the IBAN can be traced to a real bank"
+      @update:model-value="(v: boolean) => emit('update:config', { ...config, realBank: v })"
+    />
   </div>
 </template>
 

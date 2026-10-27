@@ -28,6 +28,23 @@
           </div>
         </div>
       </div>
+      <div>
+        <span class="text-xs font-medium uppercase tracking-wide text-muted">Bank</span>
+        <p
+          v-if="result.bank"
+          class="mt-1 flex items-center gap-1.5 text-highlighted"
+        >
+          <UIcon name="i-lucide-landmark" class="size-4 text-success" />
+          {{ result.bank.name }}
+        </p>
+        <p
+          v-else
+          class="mt-1 flex items-center gap-1.5 text-sm text-warning"
+        >
+          <UIcon name="i-lucide-triangle-alert" class="size-4" />
+          Bank code not linked to a known bank. Enable "Real bank only" to always get one.
+        </p>
+      </div>
       <div v-if="result.bic">
         <span class="text-xs font-medium uppercase tracking-wide text-muted">BIC</span>
         <div class="mt-1 flex items-center gap-2">
@@ -54,10 +71,10 @@
 </template>
 
 <script setup lang="ts">
-import { formatIban } from '~/composables/useIbanBic'
+import { formatIban, type IbanBicResult } from '~/composables/useIbanBic'
 
 const props = defineProps<{
-  result: { iban: string; bic?: string }
+  result: IbanBicResult
 }>()
 
 const { copyToClipboard: copyIbanToClipboard } = useClipboard()

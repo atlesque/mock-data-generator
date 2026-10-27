@@ -2,7 +2,8 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { isValidIBAN } from 'ibantools'
 import { sepaCountries } from '../data/sepa-countries.ts'
-import { generateIban } from './iban.ts'
+import { banksByCountry } from '../data/banks.ts'
+import { generateIban, hasKnownBanks, identifyBank } from './iban.ts'
 
 function hasValidIso13616Checksum(iban: string): boolean {
   const rearranged = iban.slice(4) + iban.slice(0, 4)
@@ -57,4 +58,39 @@ test('fails clearly after five invalid candidates', () => {
     () => generateIban({ code: 'ZZ', name: 'Test', ibanLength: 16 }),
     /Unable to generate a valid Test IBAN after 5 attempts/,
   )
+})
+
+test('every supported SEPA country has known banks', () => {
+  for (const country of sepaCountries) {
+    assert.equal(hasKnownBanks(country.code), true, country.code)
+  }
+})
+
+test('real bank mode generates valid IBANs for an identifiable bank', () => {
+  for (const country of sepaCountries) {
+    for (let i = 0; i < 20; i++) {
+      const iban = generateIban(country, { realBank: true })
+      assert.equal(iban.length, country.ibanLength, country.code)
+      assert.equal(isValidIBAN(iban), true, `${country.code} ${iban}`)
+      assert.ok(identifyBank(iban), `${country.code} ${iban} has no known bank`)
+    }
+  }
+})
+
+test('real bank mode can produce every bank in the dataset', () => {
+  const countryCode = 'NL'
+  const country = sepaCountries.find(c => c.code === countryCode)!
+  const seen = new Set<string>()
+  for (let i = 0; i < 500; i++) {
+    seen.add(identifyBank(generateIban(country, { realBank: true }))!.code)
+  }
+  assert.equal(seen.size, banksByCountry[countryCode]!.banks.length)
+})
+
+test('identifies banks from formatted IBANs and rejects unknown bank codes', () => {
+  assert.equal(identifyBank('NL91 ABNA 0417 1643 00')?.name, 'ABN AMRO')
+  assert.equal(identifyBank('DE89370400440532013000'), undefined)
+  assert.equal(identifyBank('DE02100700000123456789')?.bic, 'DEUTDEBB')
+  assert.equal(identifyBank('IT60X0542811101000000123456'), undefined)
+  assert.equal(identifyBank('ZZ00123456'), undefined)
 })
