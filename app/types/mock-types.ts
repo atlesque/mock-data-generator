@@ -3,6 +3,11 @@ export interface MockTypeDescriptor {
   name: string
   description: string
   icon: string
+  /** Page-specific title and meta description for the generator page */
+  seo: {
+    title: string
+    description: string
+  }
 }
 
 export interface LoremIpsumConfig {

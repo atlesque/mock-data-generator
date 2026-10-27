@@ -24,6 +24,17 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: { lang: 'en' },
+      // Shared link-preview defaults; pages set title, description and URLs via usePageSeo().
+      meta: [
+        { property: 'og:site_name', content: 'Mock Data Generator' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: 'https://mock-data.atlesque.dev/og-image.png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: 'Mock Data Generator logo with the tagline: placeholder text and valid test data, generated in your browser' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+      ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       ],
