@@ -32,7 +32,7 @@ export default defineNuxtConfig({
         { property: 'og:image', content: 'https://mock-data.atlesque.dev/og-image.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: 'Mock Data Generator: placeholder text and valid test data, with Lorem Ipsum and IBAN / BIC generators' },
+        { property: 'og:image:alt', content: 'Mock Data Generator logo with the tagline: placeholder text and valid test data, generated in your browser' },
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
       link: [
