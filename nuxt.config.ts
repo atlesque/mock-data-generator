@@ -26,11 +26,14 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: 'en' },
       // Shared link-preview defaults; pages set title, description and URLs via usePageSeo().
-      // There is no 1200x630 share image yet, so X/Twitter uses the small "summary" card.
       meta: [
         { property: 'og:site_name', content: 'Mock Data Generator' },
         { property: 'og:type', content: 'website' },
-        { name: 'twitter:card', content: 'summary' },
+        { property: 'og:image', content: 'https://mock-data.atlesque.dev/og-image.png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: 'Mock Data Generator: placeholder text and valid test data, with Lorem Ipsum and IBAN / BIC generators' },
+        { name: 'twitter:card', content: 'summary_large_image' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
