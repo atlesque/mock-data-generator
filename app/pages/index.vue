@@ -34,5 +34,11 @@
 import type { MockTypeDescriptor } from '~/types/mock-types'
 
 const { types } = useMockTypes()
+usePageSeo({
+  title: 'Mock Data Generator: Lorem Ipsum, IBAN and BIC Test Data',
+  description: 'Generate mock data for testing and design: Lorem Ipsum placeholder text and valid IBAN and BIC codes for any SEPA country, right in your browser.',
+  path: '/',
+})
+
 const { query, results } = useFuzzySearch<MockTypeDescriptor>(types, ['name', 'description'])
 </script>

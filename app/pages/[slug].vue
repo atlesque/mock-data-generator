@@ -123,6 +123,13 @@ const slug = route.params.slug as string
 const { lookupBySlug } = useMockTypes()
 const mockType = computed(() => lookupBySlug(slug))
 
+if (mockType.value) {
+  usePageSeo({
+    ...mockType.value.seo,
+    path: `/${mockType.value.slug}`,
+  })
+}
+
 // Persisted configs via generic composable
 const { useConfig, stored } = useMockSettings()
 

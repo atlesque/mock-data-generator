@@ -24,6 +24,14 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: { lang: 'en' },
+      // Shared link-preview defaults; pages set title, description and URLs via usePageSeo().
+      // There is no 1200x630 share image yet, so X/Twitter uses the small "summary" card.
+      meta: [
+        { property: 'og:site_name', content: 'Mock Data Generator' },
+        { property: 'og:type', content: 'website' },
+        { name: 'twitter:card', content: 'summary' },
+      ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       ],
